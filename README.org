@@ -1,0 +1,4 @@
+#+TITLE: fdk-aac-android
+
+看 [[https://github.com/mstorsjo/fdk-aac][fdk-aac]] 的代码，感觉编译一个 android 上使用的库比较麻烦，而且不能调试。
+简单改了下，可以 android studio + cmake 编译。
