@@ -1,0 +1,6 @@
+[submodule "lib/aac-encoder/src/main/jni/fdk-aac"]
+	path = lib/aac-encoder/src/main/jni/fdk-aac
+	url = https://github.com/mstorsjo/fdk-aac
+[submodule "fdk-aac"]
+	path = lib/aac-encoder/src/main/jni/fdk-aac
+	url = https://github.com/mstorsjo/fdk-aac

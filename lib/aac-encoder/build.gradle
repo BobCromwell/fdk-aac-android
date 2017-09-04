@@ -1,0 +1,67 @@
+/*
+ * Copyright 2015 fenbi.com. All rights reserved.
+ * FENBI.COM PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "25.0.0"
+
+    def versionMajor = 1
+    def versionMinor = 0
+    def versionPatch = 0
+
+
+    defaultConfig {
+        // TODO: inherit root project configuration
+        minSdkVersion 14
+        targetSdkVersion 24
+
+        versionCode versionMajor * 10000 + versionMinor * 100
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a'
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_TOOLCHAIN=clang", "-DANDROID_PLATFORM=android-14" , "-DANDROID_ARM_MODE=arm"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/jni/CMakeLists.txt'
+        }
+    }
+
+}
+
+task cleanExternalNativeBuild(type: Delete) << {
+    def buildDir = file('.externalNativeBuild')
+    if (buildDir.exists()) {
+        buildDir.eachDir { dir ->
+            delete dir
+        }
+    }
+}
+
+clean.dependsOn cleanExternalNativeBuild
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+}
